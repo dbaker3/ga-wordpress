@@ -1,7 +1,7 @@
-<?php 
+<?php
 /*
 Plugin Name: Google Analytics
-Description: A Hard-coded solution to quickly engage and disengage Analytics.
+Description: A Hard-coded solution to quickly engage and disengage Google Analytics.
 Version: 20120827
 Plugin URI: http://library.milliagn.edu/
 Author: Jack Weinbender
@@ -20,8 +20,13 @@ function g_analytics() {
 		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
-	</script> <?php 
+	</script> <?php
 	}
-add_action( 'footer_scripts', 'g_analytics' );
+add_action( 'wp_head', 'g_analytics' );
 
+function g_track_downloads() {
+	global $post;
+	wp_enqueue_script( 'ga_downloads', plugin_dir_path( $file ) . 'wp-content/plugins/google-analytics/ga_downloads.js', array( 'jquery' ), '20121219', true );
+	}
+add_action('wp_enqueue_scripts', 'g_track_downloads');
 ?>
