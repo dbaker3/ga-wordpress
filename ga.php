@@ -2,7 +2,7 @@
 /*
 Plugin Name: Google Analytics
 Description: A Hard-coded solution to quickly engage and disengage Google Analytics.
-Version: 20120827
+Version: 20121220
 Plugin URI: http://library.milliagn.edu/
 Author: Jack Weinbender
 Author URI: http://library.milligan.edu/
