@@ -25,8 +25,12 @@ function g_analytics() {
 add_action( 'wp_head', 'g_analytics' );
 
 function g_track_downloads() {
-	global $post;
-	wp_enqueue_script( 'ga_downloads', plugin_dir_path( $file ) . 'wp-content/plugins/google-analytics/ga_downloads.js', array( 'jquery' ), '20121219', true );
+	if(!is_user_logged_in()){
+		global $post;
+		wp_enqueue_script( 'ga_downloads', plugin_dir_url( __file__ ) . 'ga_downloads.js', array( 'jquery' ), '20121219', true );
+		}
 	}
+
 add_action('wp_enqueue_scripts', 'g_track_downloads');
+
 ?>
