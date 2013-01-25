@@ -1,36 +1,33 @@
 <?php
 /*
 Plugin Name: Google Analytics
-Description: A Hard-coded solution to quickly engage and disengage Google Analytics.
-Version: 20121220
+Description: An simple solution for adding google analytics to pages (with event tracking)
+Version: 20130124
 Plugin URI: http://library.milliagn.edu/
 Author: Jack Weinbender
 Author URI: http://library.milligan.edu/
 */
 
 function g_analytics() {
-	?>
-	<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-4045275-3']);
-		  _gaq.push(['_trackPageview']);
+	if(!is_user_logged_in()){
+		$account_num = 'TEST'; // UA-4045275-3
 
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-	</script> <?php
-	}
+		$script  = '<script type="text/javascript">';
+		$script .= "var _gaq = _gaq || [];";
+		$script .= "_gaq.push(['_setAccount', '$account_num']);";
+		$script .= "_gaq.push(['_trackPageview']);";
+		$script .= "</script>";
+
+		echo $script;
+	} 
+}
 add_action( 'wp_head', 'g_analytics' );
 
-function g_track_downloads() {
-	if(!is_user_logged_in()){
-		global $post;
-		wp_enqueue_script( 'ga_downloads', plugin_dir_url( __file__ ) . 'ga_downloads.js', array( 'jquery' ), '20121219', true );
-		}
+
+function ga_add_ga_js() {
+		wp_enqueue_script( 'ga', plugin_dir_url( __file__ ) . 'ga.js', array( 'jquery' ), '20121219', true );
 	}
 
-add_action('wp_enqueue_scripts', 'g_track_downloads');
+add_action('wp_enqueue_scripts', 'ga_add_ga_js');
 
 ?>
