@@ -10,7 +10,7 @@ Author URI: http://library.milligan.edu/
 
 function g_analytics() {
 	if(!is_user_logged_in()){
-		$account_num = 'TEST'; // UA-4045275-3
+		$account_num = 'UA-4045275-3';
 		?>
 			<script type="text/javascript">
 				var _gaq = _gaq || [];
@@ -35,13 +35,20 @@ function g_track_downloads(){
 	<?php }
 }
 
-add_action( 'wp_footer', 'g_track_downloads' );
+add_action( 'wp_head', 'g_track_downloads' );
 
 
-function ga_add_ga_js() {
-		wp_enqueue_script( 'ga', plugin_dir_url( __file__ ) . 'ga.js', array( 'jquery' ), '20121219', true );
+function ga_add_ga_js() {?>
+<script type="text/javascript">
+	(function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script><?php
 	}
 
-add_action('wp_enqueue_scripts', 'ga_add_ga_js');
+add_action('admin_footer', 'ga_add_ga_js');
+add_action('wp_footer', 'ga_add_ga_js');
 
 ?>
