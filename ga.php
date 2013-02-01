@@ -2,10 +2,10 @@
 /*
 Plugin Name: Google Analytics
 Description: An simple solution for adding google analytics to pages (with event tracking)
-Version: 20130124
-Plugin URI: http://library.milliagn.edu/
+Version: 20130130
+Plugin URI: https://github.com/jackweinbender/ga-wordpress
 Author: Jack Weinbender
-Author URI: http://library.milligan.edu/
+Author URI: https://github.com/jackweinbender
 */
 
 function g_analytics() {
